@@ -7,14 +7,23 @@ exports.emailService = exports.sendProjectAddedEmail = exports.sendMessageNotifi
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const index_js_1 = require("../config/index.js");
 // Create transporter
+const isSecureConnection = index_js_1.config.email.port === 465;
 const transporter = nodemailer_1.default.createTransport({
-    host: index_js_1.config.email.host,
-    port: index_js_1.config.email.port,
-    secure: false,
-    auth: {
-        user: index_js_1.config.email.user,
-        pass: index_js_1.config.email.pass,
-    },
+  host: index_js_1.config.email.host,
+  port: index_js_1.config.email.port,
+  secure: isSecureConnection,
+  auth: {
+    user: index_js_1.config.email.user,
+    pass: index_js_1.config.email.pass,
+  },
+  requireTLS: !isSecureConnection,
+  connectionTimeout: 15000,
+  socketTimeout: 20000,
+  pool: true,
+  tls: {
+    // Allow STARTTLS on providers that present intermediate certs
+    rejectUnauthorized: false,
+  },
 });
 // Verify connection
 const verifyEmailConnection = async () => {

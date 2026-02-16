@@ -99,7 +99,6 @@ const integrationSchema = new mongoose_1.Schema({
     isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 // Indexes
-integrationSchema.index({ userId: 1, type: 1 });
 integrationSchema.index({ workspaceId: 1, type: 1 });
 integrationSchema.index({ type: 1, status: 1 });
 // Ensure unique integration per user/type

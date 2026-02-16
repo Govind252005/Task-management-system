@@ -69,8 +69,6 @@ const twoFactorAuthSchema = new mongoose_1.Schema({
         },
     ],
 }, { timestamps: true });
-// Indexes
-twoFactorAuthSchema.index({ userId: 1 });
 // Generate backup codes
 twoFactorAuthSchema.methods.generateBackupCodes = function () {
     const codes = [];
